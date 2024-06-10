@@ -11,7 +11,7 @@ const create = (newPerson) => {
         .then((response) => response.data)
 }
 
-const update = (id, newPerson, setMessage) => {
+const update = (id, newPerson) => {
     return axios.put(`${baseUrl}/${id}`, newPerson)
         .then((response) => response.data)
 }
