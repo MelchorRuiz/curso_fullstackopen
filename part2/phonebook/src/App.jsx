@@ -69,31 +69,24 @@ const App = () => {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
         const person = persons.find(person => person.name === newName)
 
-        try {
-          ctrlPerson.update(person.id, { ...person, number: newNumber })
-            .then(data => {
-              setPersons(persons.map(p => p.id !== data.id ? p : data))
-              setMessage({ type: 'success', content: `Updated ${newName}` })
-              setTimeout(() => setMessage(null), 5000)
-            })
-            .catch(
-              setMessage({ type: 'error', content: `Information of ${newName} has already been removed from server` }),
-              setTimeout(() => setMessage(null), 5000)
-            )
-
-        } catch (error) {
-          setMessage({ type: 'error', content: error.response.data.error })
-          setTimeout(() => setMessage(null), 5000)
-        }
+        ctrlPerson.update(person.id, { ...person, number: newNumber })
+          .then(data => {
+            setPersons(persons.map(p => p.id !== data.id ? p : data))
+            setMessage({ type: 'success', content: `Updated ${newName}` })
+            setTimeout(() => setMessage(null), 5000)
+          })
+          .catch(
+            setMessage({ type: 'error', content: `Information of ${newName} has already been removed from server` }),
+            setTimeout(() => setMessage(null), 5000)
+          )
       }
     } else {
-      try {
-        ctrlPerson.create({ name: newName, number: newNumber })
-          .then(data => setPersons(persons.concat(data)))
-      } catch (error) {
-        setMessage({ type: 'error', content: error.response.data.error })
-        setTimeout(() => setMessage(null), 5000)
-      }
+      ctrlPerson.create({ name: newName, number: newNumber })
+        .then(data => setPersons(persons.concat(data)))
+        .catch(error => {
+          setMessage({ type: 'error', content: error.response.data.error })
+          setTimeout(() => setMessage(null), 5000)
+        })
 
       setMessage({ type: 'success', content: `Added ${newName}` })
       setTimeout(() => setMessage(null), 5000)
@@ -119,7 +112,6 @@ const App = () => {
       <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleSubmit={handleSubmit} />
       <h2>Numbers</h2>
       <Persons persons={persons} searchName={searchName} deletePerson={deletePerson} />
-      <footer>by my</footer>
     </div>
   )
 }
