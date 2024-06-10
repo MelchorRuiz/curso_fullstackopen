@@ -17,7 +17,7 @@ app.use(morgan(function (tokens, req, res) {
     ].join(' ')
 }));
 app.use(cors());
-app.use(express.static('build'));
+app.use(express.static('dist'));
 
 let persons = [
     {
