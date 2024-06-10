@@ -119,6 +119,7 @@ const App = () => {
       <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleSubmit={handleSubmit} />
       <h2>Numbers</h2>
       <Persons persons={persons} searchName={searchName} deletePerson={deletePerson} />
+      <footer>by my</footer>
     </div>
   )
 }
